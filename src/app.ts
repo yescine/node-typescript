@@ -7,6 +7,7 @@ app.use(json())
 
 app.use('/todos', toDoRoutes)
 
+// error Handler MiddleWare
 app.use((err:Error, req:Request,res:Response,next:NextFunction)=>{
    res.status(500).json({msg:err.message})
 })

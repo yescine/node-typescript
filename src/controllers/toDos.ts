@@ -11,3 +11,34 @@ export const createToDo:RequestHandler = (req, res, next):void =>{
 
    res.status(201).send(TODOS)
 }
+
+export const getTodos:RequestHandler = (req,res, next)=>{
+   res.send(TODOS)
+}
+
+export const updateTodo:RequestHandler<{id:string}> = (req, res, next) =>{
+   const id = req.params.id;
+   const updateText = (req.body as ToDo).text
+   const idx = TODOS.findIndex(todo=>todo.id===id)
+
+   if(idx<1)throw new Error('could not find To do id')
+
+   TODOS[idx] = new ToDo(idx.toString(),updateText)
+
+   res.send({msg:'updated', data:TODOS[idx]})
+
+}
+
+export const deleteTodo:RequestHandler<{id:string}> = (req, res, next) =>{
+   const id = req.params.id;
+   const idx = TODOS.findIndex(todo=>todo.id===id)
+
+   if(idx<1)throw new Error('could not find To do id')
+
+   TODOS.splice(idx,1)
+
+   res.send({msg:'todo Deleted'})
+
+
+
+}

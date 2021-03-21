@@ -9,6 +9,7 @@ const ToDos_1 = __importDefault(require("./routes/ToDos"));
 const app = express_1.default();
 app.use(body_parser_1.json());
 app.use('/todos', ToDos_1.default);
+// error Handler MiddleWare
 app.use((err, req, res, next) => {
     res.status(500).json({ msg: err.message });
 });
